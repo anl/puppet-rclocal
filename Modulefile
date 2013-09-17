@@ -1,11 +1,12 @@
 name    'anl-rclocal'
 version '0.1.0'
-source 'UNKNOWN'
+source 'https://github.com/anl/puppet-rclocal.git'
 author 'anl'
 license 'Apache License, Version 2.0'
-summary 'UNKNOWN'
-description 'UNKNOWN'
-project_page 'UNKNOWN'
+summary 'rc.local module'
+description 'Manage /etc/rc.local'
+project_page 'https://github.com/anl/puppet-rclocal'
 
 ## Add dependencies, if any:
-# dependency 'username/name', '>= 1.2.0'
+dependency 'puppetlabs/concat', '>= 1.0.0'
+
