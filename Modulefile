@@ -8,5 +8,5 @@ description 'Manage /etc/rc.local'
 project_page 'https://github.com/anl/puppet-rclocal'
 
 ## Add dependencies, if any:
-dependency 'puppetlabs/concat', '>= 1.0.0'
+dependency 'puppetlabs/concat', '>=1.0.0'
 
