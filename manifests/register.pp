@@ -16,7 +16,9 @@
 #
 # === Examples
 #
-#
+# rclocal::register { 'nsupdate':
+#   content => template('nsupdate/rc.local.fragment.erb')
+# }
 #
 # === Authors
 #
