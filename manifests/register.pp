@@ -39,7 +39,7 @@ define rclocal::register($content='', $priority=50, $source=false) {
   } else {
     concat::fragment{ "rclocal_fragment_${name}":
       target  => '/etc/rc.local',
-      content => $content,
+      content => "$content \n",
       order   => $priority,
     }
   }

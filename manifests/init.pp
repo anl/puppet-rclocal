@@ -18,8 +18,13 @@
 #
 # Copyright 2013 Andrew Leonard
 #
-class rclocal {
+class rclocal ( 
 
+	$header	=	$::rclocal::params::rclocal_header
+
+) inherits ::rclocal::params {
+
+notify {"header = $header":}
   concat { '/etc/rc.local':
     owner => 'root',
     group => 'root',
@@ -29,7 +34,7 @@ class rclocal {
   concat::fragment { 'rc.local_header':
     target => '/etc/rc.local',
     order  => 01,
-    source => 'puppet:///modules/rclocal/header'
+    source => "puppet:///modules/rclocal/$header"
   }
 
   concat::fragment { 'rc.local_footer':
