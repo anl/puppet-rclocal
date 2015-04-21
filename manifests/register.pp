@@ -32,14 +32,16 @@ define rclocal::register($content='', $priority=50, $source=false) {
 
   if $source {
     concat::fragment{ "rclocal_fragment_${name}":
-      target => '/etc/rc.local',
+      # BTS target  => '/etc/rc.local',
+      target  => $::rclocal::target, 
       order  => $priority,
       source => $source,
     }
   } else {
     concat::fragment{ "rclocal_fragment_${name}":
-      target  => '/etc/rc.local',
-      content => $content,
+      # BTS target  => '/etc/rc.local',
+      target  => $::rclocal::target, 
+      content => "$content \n",
       order   => $priority,
     }
   }

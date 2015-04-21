@@ -18,22 +18,47 @@
 #
 # Copyright 2013 Andrew Leonard
 #
-class rclocal {
+class rclocal ( 
 
-  concat { '/etc/rc.local':
-    owner => 'root',
-    group => 'root',
-    mode  => '0555', # correct?
+	$symlink = $::rclocal::params::symlink,
+	$header	=	$::rclocal::params::header,
+	$target = $::rclocal::params::target,
+
+	$owner = $::rclocal::params::owner,
+	$group = $::rclocal::params::group,
+	$mode  = $::rclocal::params::mode,
+
+) inherits ::rclocal::params {
+
+
+	# On some distros, there is a symlink /etc/rc.d/rc.local -> /etc/rc.local.  If this is the
+	# case here, ensure the symlink is present.
+	if $symlink == true
+	{
+		file { '/etc/rc.local':
+			ensure	=>	link,
+			owner		=>	'root',
+			group		=>	'root',
+			mode		=>	'777',
+			target	=>	$target,
+		}
+	}
+
+
+  concat { $target:
+    owner => $owner,
+    group => $group,
+    mode  => $mode,
   }
 
   concat::fragment { 'rc.local_header':
-    target => '/etc/rc.local',
+    target => $target,
     order  => 01,
-    source => 'puppet:///modules/rclocal/header'
+    source => "puppet:///modules/rclocal/$header"
   }
 
   concat::fragment { 'rc.local_footer':
-    target => '/etc/rc.local',
+    target => $target,
     order  => 99,
     source => 'puppet:///modules/rclocal/footer'
   }
